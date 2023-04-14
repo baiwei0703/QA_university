@@ -25,12 +25,16 @@ y_true = [['B-name', 'I-name', 'I-name', 'I-name'], ['B-ingredient', 'I-ingredie
            'B-content', 'I-content', 'I-content', 'I-content', 'I-content', 'I-content', 'I-content'],
           ['O', 'O', 'O', 'B-name', 'I-name']]
 
-acc = ner_accuracy_score(y_true, y_pred)
-precision = ner_precision_score(y_true, y_pred)
-recall = ner_recall_score(y_true, y_pred)
-f1 = ner_f1_score(y_true, y_pred)
-report = ner_classification_report(y_true, y_pred)
 
-if __name__ == '__main__':
+def test():
+    acc = ner_accuracy_score(y_true, y_pred)
+    precision = ner_precision_score(y_true, y_pred)
+    recall = ner_recall_score(y_true, y_pred)
+    f1 = ner_f1_score(y_true, y_pred)
+    report = ner_classification_report(y_true, y_pred)
     print(acc, precision, recall, f1)
     print(report)
+
+
+if __name__ == '__main__':
+    test()

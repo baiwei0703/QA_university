@@ -79,6 +79,49 @@ class Args:
         ]
     }
 
+    semantic_slot = {
+        # 学校基本信息
+        "UNIVERSITY_INFO": {
+            "slot_list": ["UNIVERSITY"],
+            "slot_values": None,
+            "cql_template": "MATCH(p:学校) WHERE p.name='{UNIVERSITY}' RETURN p.desc",
+            "reply_template": "'{UNIVERSITY}' 的基本情况如下：\n",
+            "ask_template": "您问的是 '{UNIVERSITY}' 的基本情况吗？",
+            "intent_strategy": "",
+            "deny_response": "很抱歉没有理解你的意思呢~"
+        },
+        # 学校入学要求
+        "UNIVERSITY_REQ": {
+            "slot_list": ["UNIVERSITY"],
+            "slot_values": None,
+            "cql_template": "MATCH(p:学校) WHERE p.name='{UNIVERSITY}' RETURN p.require",
+            "reply_template": "'{UNIVERSITY}' 的基本要求如下：\n",
+            "ask_template": "您问的是 '{UNIVERSITY}' 的入学要求吗？",
+            "intent_strategy": "",
+            "deny_response": "您说的我有点不明白，您可以换个问法问我哦~"
+        },
+        # 学校花费
+        "UNIVERSITY_COST": {
+            "slot_list": ["UNIVERSITY"],
+            "slot_values": None,
+            "cql_template": "MATCH(p:学校) WHERE p.name='{UNIVERSITY}' RETURN p.cost",
+            "reply_template": "'{UNIVERSITY}' 的花费大致是：\n",
+            "ask_template": "您问的是 '{UNIVERSITY}' 的入学花费吗？",
+            "intent_strategy": "",
+            "deny_response": "额~似乎有点不理解你说的是啥呢~"
+        },
+        # 专业信息
+        "MAJOR_INFO": {
+            "slot_list": ["MAJOR"],
+            "slot_values": None,
+            "cql_template": "MATCH(p:专业) WHERE p.name='{MAJOR}' RETURN p.desc",
+            "reply_template": "'{MAJOR}' 的基本情况如下：\n",
+            "ask_template": "您问的是 '{MAJOR}' 的基本情况吗？",
+            "intent_strategy": "",
+            "deny_response": "人类的语言太难了！！"
+        }
+    }
+
 
 if __name__ == '__main__':
     args = Args()

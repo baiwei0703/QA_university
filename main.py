@@ -12,7 +12,7 @@ from model import BertForIntentClassificationAndSlotFilling
 from dataset import BertDataset
 from preprocess import Processor, get_features
 
-from reply import gossip_robot
+from reply import gossip_robot, pro_bot
 
 
 class Trainer:
@@ -174,7 +174,8 @@ class Trainer:
             token_output = [self.config.id2nerlabel[i] for i in token_output]
             print('意图：', self.config.id2seqlabel[seq_output])
             print('槽位：', str([(i[0], text[i[1]:i[2] + 1], i[1], i[2]) for i in get_entities(token_output)]))
-            return self.config.id2seqlabel[seq_output]
+            return self.config.id2seqlabel[seq_output], [(i[0], text[i[1]:i[2] + 1], i[1], i[2]) for i in
+                                                         get_entities(token_output)]
 
 
 def main():
@@ -244,10 +245,16 @@ def do_predict():
 
     while 1:
         text = input("用户输入：")
-        intent = trainer.predict(text)
+        intent, slots = trainer.predict(text)
         if intent in Args.gossip_corpus.keys():
             reply = gossip_robot(intent)
             print("回答：", reply)
+
+        slots_list = [{'name': i[0], 'value': i[1]} for i in slots]
+        for semantic_intent in Args.semantic_slot.keys():
+            if intent == semantic_intent:
+                print(slots_list)
+                print(Args.semantic_slot[intent].get("cql_template"))
         print('=' * 20)
 
 
